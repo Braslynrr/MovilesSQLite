@@ -1,6 +1,7 @@
 package Una.com.ui
 
 import Una.com.R
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -20,6 +21,8 @@ class MainActivity : AppCompatActivity() {
             pass=findViewById<TextView>(R.id.passwordTxt).text.toString()
             if(name=="admin" && pass==name){
                 Toast.makeText(this,"Logueando",Toast.LENGTH_LONG).show()
+                val intent = Intent(this, Menu::class.java)
+                startActivity(intent)
             }
         }
     }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/student">
+    <fragment
+        android:id="@+id/student"
+        android:name="Una.com.ui.student.Student"
+        android:label="students"
+        tools:layout="@layout/fragment_student" />
+    <fragment
+        android:id="@+id/course"
+        android:name="Una.com.ui.course.Course"
+        android:label="Courses"
+        tools:layout="@layout/fragment_course" />
+    <fragment
+        android:id="@+id/enrollment"
+        android:name="Una.com.ui.enrollment.Enrollment"
+        android:label="Enrollments"
+        tools:layout="@layout/fragment_enrollment" />
+</navigation>
