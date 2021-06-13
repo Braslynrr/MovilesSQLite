@@ -27,13 +27,13 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
         onCreate(db)
     }
 
-    fun insertStudent(student: Student): Long {
+    fun insertStudent(Student: Student): Long {
         val db= this.writableDatabase
         val content= ContentValues()
-        content.put(ID,student.ID)
-        content.put(NAME,student.Nombre)
-        content.put(SURNAME,student.Apellido)
-        content.put(AGE,student.Edad)
+        content.put(ID,Student.ID)
+        content.put(NAME,Student.Nombre)
+        content.put(SURNAME,Student.Apellido)
+        content.put(AGE,Student.Edad)
         return db.insert(TABLE_STUDENT, null, content)
     }
     fun insertCourse(course: Course){
@@ -47,18 +47,18 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
     fun insertEnrollment(enrollment: Enrollment) {
         val db= this.writableDatabase
         val content= ContentValues()
-        content.put(STUDENT,enrollment.student.ID)
+        content.put(STUDENT,enrollment.Student.ID)
         content.put(COURSE,enrollment.course.ID)
         db.insert(TABLE_COURSE, null, content)
     }
-    fun updateStudent(student: Student):Boolean{
+    fun updateStudent(Student: Student):Boolean{
         val db= this.writableDatabase
         val content= ContentValues()
-        content.put(ID,student.ID)
-        content.put(NAME,student.Nombre)
-        content.put(SURNAME,student.Apellido)
-        content.put(AGE,student.Edad)
-        db.update(TABLE_STUDENT, content, "ID = ?", arrayOf(student.ID.toString()))
+        content.put(ID,Student.ID)
+        content.put(NAME,Student.Nombre)
+        content.put(SURNAME,Student.Apellido)
+        content.put(AGE,Student.Edad)
+        db.update(TABLE_STUDENT, content, "ID = ?", arrayOf(Student.ID.toString()))
         return true
     }
     fun updateCourse(course: Course):Boolean{
@@ -72,14 +72,14 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
     fun updateEnrollment(enrollment: Enrollment):Boolean{
         val db= this.writableDatabase
         val content= ContentValues()
-        content.put(STUDENT,enrollment.student.ID)
+        content.put(STUDENT,enrollment.Student.ID)
         content.put(COURSE,enrollment.course.ID)
         db.update(TABLE_ENROLLMENT, content, "ID = ?", arrayOf(enrollment.ID.toString()))
         return true
     }
-    fun deleteStudent(student: Student):Int{
+    fun deleteStudent(Student: Student):Int{
         val db= this.writableDatabase
-        return db.delete(TABLE_STUDENT,"ID = ?", arrayOf(student.ID.toString()))
+        return db.delete(TABLE_STUDENT,"ID = ?", arrayOf(Student.ID.toString()))
     }
     fun deleteCourse(course: Course):Int{
         val db= this.writableDatabase

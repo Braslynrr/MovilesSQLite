@@ -1,10 +1,10 @@
 package Una.com.logic
 
-class Enrollment(ID:Int, student: Student, course: Course){
+class Enrollment(ID:Int, Student: Student, course: Course){
     var ID:Int=ID
-    var student: Student =student
+    var Student: Student =Student
     var course: Course =course
     override fun toString(): String {
-        return "$ID $student $course"
+        return "$ID $Student $course"
     }
 }

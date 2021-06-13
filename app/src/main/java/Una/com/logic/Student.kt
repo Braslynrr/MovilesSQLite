@@ -1,6 +1,6 @@
 package Una.com.logic
 
-class Student(ID:Int,Nombre:String,Apellido:String,Edad:Int){
+class Student(ID:Int, Nombre:String, Apellido:String, Edad:Int){
     var ID:Int= ID
     var Nombre:String=Nombre
     var Apellido:String=Apellido
