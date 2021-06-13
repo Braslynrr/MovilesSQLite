@@ -6,17 +6,17 @@
     app:startDestination="@id/student">
     <fragment
         android:id="@+id/student"
-        android:name="Una.com.ui.student.Student"
+        android:name="una.com.ui.student.Student"
         android:label="students"
         tools:layout="@layout/fragment_student" />
     <fragment
         android:id="@+id/course"
-        android:name="Una.com.ui.course.Course"
+        android:name="una.com.ui.course.Course"
         android:label="Courses"
         tools:layout="@layout/fragment_course" />
     <fragment
         android:id="@+id/enrollment"
-        android:name="Una.com.ui.enrollment.Enrollment"
+        android:name="una.com.ui.enrollment.Enrollment"
         android:label="Enrollments"
         tools:layout="@layout/fragment_enrollment" />
 </navigation>

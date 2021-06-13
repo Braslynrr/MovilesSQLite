@@ -1,6 +1,6 @@
 package Una.com.adapter
 
-import Una.com.logic.Student
+import una.com.logic.Student
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

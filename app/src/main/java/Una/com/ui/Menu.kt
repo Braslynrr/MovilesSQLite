@@ -1,6 +1,5 @@
-package Una.com.ui
+package una.com.ui
 
-import Una.com.R
 import android.os.Bundle
 import android.view.Menu
 import com.google.android.material.snackbar.Snackbar
@@ -12,7 +11,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import Una.com.databinding.ActivityMenuBinding
+import una.com.R
+import una.com.databinding.ActivityMenuBinding
 
 class Menu : AppCompatActivity() {
 

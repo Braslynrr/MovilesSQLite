@@ -1,4 +1,4 @@
-package Una.com.logic
+package una.com.logic
 
 class Student(ID:Int, Nombre:String, Apellido:String, Edad:Int){
     var ID:Int= ID

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="Una.com">
+    package="una.com">
 
     <application
         android:allowBackup="true"
@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lab05R">
         <activity
-            android:name=".ui.Menu"
+            android:name="una.com.ui.Menu"
             android:label="@string/title_activity_menu"
             android:theme="@style/Theme.Lab05R.NoActionBar"></activity>
-        <activity android:name=".ui.MainActivity">
+        <activity android:name="una.com.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

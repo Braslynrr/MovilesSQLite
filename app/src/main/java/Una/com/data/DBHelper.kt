@@ -1,13 +1,13 @@
-package Una.com.data
+package una.com.data
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import Una.com.logic.Enrollment
-import Una.com.logic.Course
-import Una.com.logic.Student
+import una.com.logic.Enrollment
+import una.com.logic.Course
+import una.com.logic.Student
 
 class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
 

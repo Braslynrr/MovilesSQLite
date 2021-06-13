@@ -9,7 +9,7 @@
 
         <variable
             name="student"
-            type="Una.com.logic.Student" />
+            type="una.com.logic.Student" />
     </data>
 
     <androidx.cardview.widget.CardView

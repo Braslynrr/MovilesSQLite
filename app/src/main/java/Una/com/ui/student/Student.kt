@@ -1,13 +1,12 @@
-package Una.com.ui.student
+package una.com.ui.student
 
-import Una.com.R
-import Una.com.data.DBHelper
-import Una.com.databinding.FragmentStudentBinding
+import una.com.data.DBHelper
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import una.com.databinding.FragmentStudentBinding
 
 class Student : Fragment() {
     private var db: DBHelper? =null
