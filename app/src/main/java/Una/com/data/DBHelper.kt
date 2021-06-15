@@ -5,12 +5,13 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import androidx.lifecycle.MutableLiveData
 import una.com.logic.Enrollment
 import una.com.logic.Course
 import una.com.logic.Student
 
 class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
-
+    val Slist = MutableLiveData<List<Student>>()
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE $TABLE_STUDENT ($ID INTEGER PRIMARY KEY " +
                 ",$NAME TEXT,$SURNAME TEXT,$AGE INTEGER)")
@@ -34,7 +35,11 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
         content.put(NAME,Student.Nombre)
         content.put(SURNAME,Student.Apellido)
         content.put(AGE,Student.Edad)
-        return db.insert(TABLE_STUDENT, null, content)
+        val out = db.insert(TABLE_STUDENT, null, content)
+        if (out.toInt()!=-1){
+            Slist.value= allStudents()
+        }
+        return out
     }
     fun insertCourse(course: Course){
         val db= this.writableDatabase
@@ -147,6 +152,10 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
             }
             return list
         }
+
+    init {
+        Slist.value=allStudents()
+    }
     companion object {
         val DATABASE_NAME = "students.db"
         val TABLE_STUDENT = "student"

@@ -27,18 +27,23 @@ class Menu : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMenu.toolbar)
 
-        binding.appBarMenu.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_menu)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+        binding.appBarMenu.fab.setOnClickListener { view ->
+            when(navController.currentDestination?.label){
+                "Students"-> navController.navigate(R.id.addStudents)
+                "Courses"-> navController.navigate(R.id.enrollment)
+                "Enrollment"-> navController.navigate(R.id.enrollment)
+            }
+        }
+
+
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.student,R.id.enrollment,R.id.course
+                R.id.student,R.id.enrollment,R.id.course,R.id.addStudents
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

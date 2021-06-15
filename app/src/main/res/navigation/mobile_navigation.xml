@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/student"
         android:name="una.com.ui.student.Student"
-        android:label="students"
+        android:label="Students"
         tools:layout="@layout/fragment_student" />
     <fragment
         android:id="@+id/course"
@@ -19,4 +19,9 @@
         android:name="una.com.ui.enrollment.Enrollment"
         android:label="Enrollments"
         tools:layout="@layout/fragment_enrollment" />
+    <fragment
+        android:id="@+id/addStudents"
+        android:name="una.com.ui.student.addStudents"
+        android:label="fragment_add_students"
+        tools:layout="@layout/fragment_add_students" />
 </navigation>

@@ -27,35 +27,37 @@
             android:padding="10dp">
 
             <TextView
-                android:id="@+id/app_name"
+                android:id="@+id/st_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
-                android:text="@{student.Nombre +' '+ student.Apellido}"
+                android:text="@{Integer.toString(student.ID)}"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/app_email"
+                android:id="@+id/st_fullname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/app_name"
+                android:layout_below="@id/st_id"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="@{student.Edad}"
+                android:text="@{student.nombre+' '+student.apellido}"
                 android:textColor="@color/black" />
 
             <TextView
+                android:id="@+id/st_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/app_email"
+                android:layout_below="@id/st_fullname"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="@{student.ID}"
+                android:text="@{Integer.toString(student.Edad)}"
                 android:textColor="@color/black" />
+
         </RelativeLayout>
 
 
