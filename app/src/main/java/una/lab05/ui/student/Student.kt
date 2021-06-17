@@ -117,6 +117,7 @@ class Student : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        db=null
     }
 
     private fun OnInitViewmodel(adapter: StudentAdapter) {

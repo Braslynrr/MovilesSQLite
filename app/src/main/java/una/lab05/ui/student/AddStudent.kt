@@ -43,7 +43,7 @@ class AddStudent : Fragment() {
         }else{
 
             var student: Student? = db.Slist.value?.get(st);
-            binding.addBtn.setText("Modificar")
+            binding.addBtn.text = "Modificar"
             binding.idTxt.isEnabled=false
             binding.idTxt.setText(student?.ID.toString())
             binding.nombretxt.setText(student?.Nombre)

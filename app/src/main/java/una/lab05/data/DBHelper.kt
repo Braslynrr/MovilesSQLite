@@ -12,10 +12,11 @@ import una.lab05.logic.Student
 
 class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
     val Slist = MutableLiveData<List<Student>>()
+    val Clist = MutableLiveData<List<Course>>()
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE $TABLE_STUDENT ($ID INTEGER PRIMARY KEY " +
                 ",$NAME TEXT,$SURNAME TEXT,$AGE INTEGER)")
-        db.execSQL("CREATE TABLE $TABLE_COURSE ($AGE INTEGER PRIMARY KEY " +
+        db.execSQL("CREATE TABLE $TABLE_COURSE ($ID INTEGER PRIMARY KEY " +
                 ",$DESCIPRION TEXT,$CREDIT INTEGER)")
         db.execSQL("CREATE TABLE $TABLE_ENROLLMENT ($ID INTEGER PRIMARY KEY " +
                 "AUTOINCREMENT,$STUDENT INTEGER,$COURSE INTEGER)")
@@ -41,13 +42,16 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
         }
         return out
     }
-    fun insertCourse(course: Course){
+    fun insertCourse(course: Course):Long{
         val db= this.writableDatabase
         val content= ContentValues()
         content.put(ID,course.ID)
         content.put(DESCIPRION,course.Descripcion)
         content.put(CREDIT,course.Creditos)
-        db.insert(TABLE_COURSE, null, content)
+        val out=db.insert(TABLE_COURSE, null, content)
+        if(out.toInt()!=-1)
+           Clist.value=allCourses()
+        return out
     }
     fun insertEnrollment(enrollment: Enrollment) {
         val db= this.writableDatabase
@@ -69,13 +73,16 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
         }
         return out
     }
-    fun updateCourse(course: Course):Boolean{
+    fun updateCourse(course: Course):Int{
         val db= this.writableDatabase
         val content= ContentValues()
         content.put(DESCIPRION,course.Descripcion)
         content.put(CREDIT,course.Creditos)
-        db.update(TABLE_COURSE, content, "ID = ?", arrayOf(course.ID.toString()))
-        return true
+        val out =db.update(TABLE_COURSE, content, "ID = ?", arrayOf(course.ID.toString()))
+        if (out!=-1){
+            Slist.value= allStudents()
+        }
+        return out
     }
     fun updateEnrollment(enrollment: Enrollment):Boolean{
         val db= this.writableDatabase
@@ -120,6 +127,7 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
 
 
     fun allStudents():List<Student>{
+
         val list:MutableList<Student> = mutableListOf()
         val db= this.writableDatabase
         val res = db.rawQuery("Select * from $TABLE_STUDENT",null)
@@ -130,32 +138,36 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
             }
         }
         list.sortBy{x->x.ID}
+        res.close()
+        return list
+    }
+    fun allCourses():List<Course>{
+        val list:MutableList<Course> = mutableListOf()
+        val db= this.writableDatabase
+        val res = db.rawQuery("Select * from $TABLE_COURSE",null)
+        if(res.moveToFirst()){
+            list.add(Course(res.getInt(0),res.getString(1),res.getInt(2)))
+            while (res.moveToNext()) {
+                list.add(Course(res.getInt(0),res.getString(1),res.getInt(2)))
+            }
+        }
+        res.close()
         return list
     }
 
-        fun allCourses():List<Course>{
-            val list:MutableList<Course> = mutableListOf()
-            val db= this.writableDatabase
-            val res = db.rawQuery("Select * from $TABLE_COURSE",null)
-            if(res.moveToFirst()){
-                while (res.moveToNext()) {
-                    list.add(Course(res.getInt(0),res.getString(1),res.getInt(2)))
-                }
+    fun allEnrollment():List<Enrollment>{
+        val list:MutableList<Enrollment> = mutableListOf()
+        val db= this.writableDatabase
+        val res = db.rawQuery("Select * from $TABLE_ENROLLMENT",null)
+        if(res.moveToFirst()){
+            list.add(Enrollment(res.getInt(0),findStudent( res.getString(1)) ,findCourse(res.getString(2))))
+            while (res.moveToNext()) {
+                list.add(Enrollment(res.getInt(0),findStudent( res.getString(1)) ,findCourse(res.getString(2))))
             }
-            return list
         }
-
-        fun allEnrollment():List<Enrollment>{
-            val list:MutableList<Enrollment> = mutableListOf()
-            val db= this.writableDatabase
-            val res = db.rawQuery("Select * from $TABLE_ENROLLMENT",null)
-            if(res.moveToFirst()){
-                while (res.moveToNext()) {
-                    list.add(Enrollment(res.getInt(0),findStudent( res.getString(1)) ,findCourse(res.getString(2))))
-                }
-            }
-            return list
-        }
+        res.close()
+        return list
+    }
 
     fun filterStudent(newText: String?) {
         var aux=Slist.value
@@ -166,8 +178,17 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
         Slist.value=lista!!.distinct()
     }
 
+    fun filterCourse(newText: String?) {
+        var aux=Clist.value
+        var lista:List<Course> = aux!!.filter{ it.ID.toString().toUpperCase().contains(newText.toString().toUpperCase()) }
+        lista= lista!!+ aux!!.filter{ it.Descripcion.toString().toUpperCase().contains(newText.toString().toUpperCase()) }
+        lista= lista!!+ aux!!.filter{ it.Creditos.toString().toUpperCase().contains(newText.toString().toUpperCase()) }
+        Clist.value=lista!!.distinct()
+    }
+
     init {
         Slist.value=allStudents()
+        Clist.value=allCourses()
     }
 
     companion object {
