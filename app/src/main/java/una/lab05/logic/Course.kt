@@ -1,4 +1,4 @@
-package una.com.logic
+package una.lab05.logic
 
 class Course(ID:Int,Descripcion:String,Creditos:Int){
 

@@ -1,4 +1,4 @@
-package una.com.ui
+package una.lab05
 
 import android.os.Bundle
 import android.view.Menu
@@ -11,10 +11,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import una.com.R
-import una.com.databinding.ActivityMenuBinding
+import una.lab05.databinding.ActivityMenuBinding
+import una.lab05.R
 
-class Menu : AppCompatActivity() {
+class MenuActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMenuBinding
@@ -27,6 +27,7 @@ class Menu : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMenu.toolbar)
 
+
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_menu)
@@ -34,16 +35,15 @@ class Menu : AppCompatActivity() {
         // menu should be considered as top level destinations.
         binding.appBarMenu.fab.setOnClickListener { view ->
             when(navController.currentDestination?.label){
-                "Students"-> navController.navigate(R.id.addStudents)
-                "Courses"-> navController.navigate(R.id.enrollment)
-                "Enrollment"-> navController.navigate(R.id.enrollment)
+                "Students"-> navController.navigate(R.id.addStudent2)
+                "Courses"-> navController.navigate(R.id.addCourse)
+                "Enrollment"-> navController.navigate(R.id.addStudent2)
             }
         }
 
-
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.student,R.id.enrollment,R.id.course,R.id.addStudents
+                R.id.student,R.id.addStudent2,R.id.course,R.id.addCourse
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

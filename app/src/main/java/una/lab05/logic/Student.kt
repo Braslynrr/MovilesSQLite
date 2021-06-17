@@ -1,6 +1,8 @@
-package una.com.logic
+package una.lab05.logic
 
-class Student(ID:Int, Nombre:String, Apellido:String, Edad:Int){
+import java.io.Serializable
+
+class Student(ID:Int, Nombre:String, Apellido:String, Edad:Int):Serializable{
     var ID:Int= ID
     var Nombre:String=Nombre
     var Apellido:String=Apellido

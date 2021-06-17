@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f5f5f5"
     android:orientation="vertical"
-    tools:context="una.com.ui.Menu"
-    android:background="#f5f5f5">
+    tools:context=".MenuActivity">
 
     <SearchView
         android:id="@+id/search_box"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/teal_700" />
+        android:background="@color/purple_500"/>
 
     <androidx.recyclerview.widget.RecyclerView
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/studentchard"
-        android:id="@+id/application_recycle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        tools:listitem="@layout/studentchard"
+        android:layout_height="match_parent"
+        android:id="@+id/application_recycle"/>
 </LinearLayout>

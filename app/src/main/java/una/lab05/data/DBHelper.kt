@@ -1,4 +1,4 @@
-package una.com.data
+package una.lab05.data
 
 import android.content.ContentValues
 import android.content.Context
@@ -6,9 +6,9 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import androidx.lifecycle.MutableLiveData
-import una.com.logic.Enrollment
-import una.com.logic.Course
-import una.com.logic.Student
+import una.lab05.logic.Enrollment
+import una.lab05.logic.Course
+import una.lab05.logic.Student
 
 class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
     val Slist = MutableLiveData<List<Student>>()
@@ -56,15 +56,18 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
         content.put(COURSE,enrollment.course.ID)
         db.insert(TABLE_COURSE, null, content)
     }
-    fun updateStudent(Student: Student):Boolean{
+    fun updateStudent(Student: Student):Int{
         val db= this.writableDatabase
         val content= ContentValues()
         content.put(ID,Student.ID)
         content.put(NAME,Student.Nombre)
         content.put(SURNAME,Student.Apellido)
         content.put(AGE,Student.Edad)
-        db.update(TABLE_STUDENT, content, "ID = ?", arrayOf(Student.ID.toString()))
-        return true
+        val out =db.update(TABLE_STUDENT, content, "ID = ?", arrayOf(Student.ID.toString()))
+        if (out!=-1){
+            Slist.value= allStudents()
+        }
+        return out
     }
     fun updateCourse(course: Course):Boolean{
         val db= this.writableDatabase
@@ -126,6 +129,7 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
                 list.add(Student(res.getInt(0),res.getString(1),res.getString(2),res.getInt(3)))
             }
         }
+        list.sortBy{x->x.ID}
         return list
     }
 
@@ -153,9 +157,19 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
             return list
         }
 
+    fun filterStudent(newText: String?) {
+        var aux=Slist.value
+        var lista:List<Student> = aux!!.filter{ it.ID.toString().toUpperCase().contains(newText.toString().toUpperCase()) }
+        lista= lista!!+ aux!!.filter{ it.Edad.toString().toUpperCase().contains(newText.toString().toUpperCase()) }
+        lista= lista!!+ aux!!.filter{ it.Nombre.toUpperCase().contains(newText.toString().toUpperCase()) }
+        lista= lista!!+ aux!!.filter{ it.Apellido.toUpperCase().contains(newText.toString().toUpperCase()) }
+        Slist.value=lista!!.distinct()
+    }
+
     init {
         Slist.value=allStudents()
     }
+
     companion object {
         val DATABASE_NAME = "students.db"
         val TABLE_STUDENT = "student"

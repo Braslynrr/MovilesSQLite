@@ -1,4 +1,4 @@
-package Una.com
+package una.lab05
 
 import org.junit.Test
 

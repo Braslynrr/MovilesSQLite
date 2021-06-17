@@ -1,19 +1,19 @@
-package una.com.adapter
+package una.lab05.adapter
 
-import una.com.logic.Student
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import una.com.databinding.StudentchardBinding
+import una.lab05.databinding.StudentchardBinding
+import una.lab05.logic.Student
 
-class StudentAdapter:RecyclerView.Adapter<StudentAdapter.ViewHolder> (){
+class StudentAdapter: RecyclerView.Adapter<StudentAdapter.ViewHolder> (){
     public var items = listOf<Student>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
-    public  class ViewHolder(private val binding: StudentchardBinding):RecyclerView.ViewHolder(binding.root){
+    public  class ViewHolder(private val binding: StudentchardBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item: Student){
             binding.student=item
         }
