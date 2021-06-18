@@ -37,20 +37,17 @@ class Student : Fragment() {
         binding.applicationRecycle.adapter=adapter
         return adapter
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        db= DBHelper(requireContext())
-        mainSList= db!!.allStudents()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        db= DBHelper(requireContext())
+        mainSList= db!!.allStudents()
         _binding = FragmentStudentBinding.inflate(inflater, container, false)
         list=binding.applicationRecycle
         list.setHasFixedSize(true)
-        //Filter
+
         binding.searchBox.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -63,7 +60,6 @@ class Student : Fragment() {
             }
 
         })
-        //swipe
 
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
@@ -119,6 +115,7 @@ class Student : Fragment() {
         _binding = null
         db=null
     }
+
 
     private fun OnInitViewmodel(adapter: StudentAdapter) {
         db?.Slist?.observe(viewLifecycleOwner) { items ->

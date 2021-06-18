@@ -36,15 +36,12 @@ class Course : Fragment() {
         binding.applicationRecycle.adapter=adapter
         return adapter
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        db= DBHelper(requireContext())
-        mainlist= db!!.allCourses()
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        db= DBHelper(requireContext())
+        mainlist= db!!.allCourses()
         _binding = FragmentCourseBinding.inflate(inflater, container, false)
         list=binding.applicationRecycle
         list.setHasFixedSize(true)
