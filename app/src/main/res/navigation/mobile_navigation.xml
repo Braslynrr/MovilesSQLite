@@ -22,4 +22,14 @@
         android:id="@+id/addCourse"
         android:name="una.lab05.ui.course.AddCourse"
         android:label="AddCourse" />
+    <fragment
+        android:id="@+id/enrollment"
+        android:name="una.lab05.ui.enrollment.Enrollment"
+        android:label="Enrollments"
+        tools:layout="@layout/fragment_enrollment" />
+    <fragment
+        android:id="@+id/addEnrolment"
+        android:name="una.lab05.ui.enrollment.AddEnrolment"
+        android:label="addEnrollment"
+        tools:layout="@layout/fragment_add_enrolment" />
 </navigation>

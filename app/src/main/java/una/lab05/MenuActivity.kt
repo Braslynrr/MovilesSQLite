@@ -37,13 +37,14 @@ class MenuActivity : AppCompatActivity() {
             when(navController.currentDestination?.label){
                 "Students"-> navController.navigate(R.id.addStudent2)
                 "Courses"-> navController.navigate(R.id.addCourse)
-                "Enrollment"-> navController.navigate(R.id.addStudent2)
+                "Enrollments"-> navController.navigate(R.id.addEnrolment)
             }
         }
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.student,R.id.addStudent2,R.id.course,R.id.addCourse
+                R.id.student,R.id.addStudent2,R.id.course,R.id.addCourse,
+                R.id.enrollment,R.id.addEnrolment
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

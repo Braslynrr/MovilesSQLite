@@ -13,6 +13,7 @@ import una.lab05.logic.Student
 class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
     val Slist = MutableLiveData<List<Student>>()
     val Clist = MutableLiveData<List<Course>>()
+    val Elist = MutableLiveData<List<Enrollment>>()
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE $TABLE_STUDENT ($ID INTEGER PRIMARY KEY " +
                 ",$NAME TEXT,$SURNAME TEXT,$AGE INTEGER)")
@@ -53,12 +54,15 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
            Clist.value=allCourses()
         return out
     }
-    fun insertEnrollment(enrollment: Enrollment) {
+    fun insertEnrollment(enrollment: Enrollment):Long{
         val db= this.writableDatabase
         val content= ContentValues()
         content.put(STUDENT,enrollment.Student.ID)
         content.put(COURSE,enrollment.course.ID)
-        db.insert(TABLE_COURSE, null, content)
+        val out=db.insert(TABLE_ENROLLMENT, null, content)
+        if (out.toInt()!=-1)
+            Elist.value=allEnrollment()
+        return out
     }
     fun updateStudent(Student: Student):Int{
         val db= this.writableDatabase
@@ -106,23 +110,29 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
     }
     fun findStudent(ID:String): Student {
         val db= this.writableDatabase
-        val res:Cursor = db.rawQuery("Select * from $TABLE_STUDENT where ID=$ID ",null)
+        val res:Cursor = db.rawQuery("Select * from $TABLE_STUDENT where ID=$ID",null)
         res.moveToFirst()
-        return Student(res.getString(0).toInt(),res.getString(1),res.getString(2),res.getString(3).toInt())
+        var student=Student(res.getString(0).toInt(),res.getString(1),res.getString(2),res.getString(3).toInt())
+        res.close()
+        return student
     }
 
     fun findCourse(ID: String): Course {
-        val db= this.writableDatabase
-        val res = db.rawQuery("Select * from $TABLE_COURSE where ID=$ID ",null)
+        val db = this.writableDatabase
+        val res = db.rawQuery("Select * from $TABLE_COURSE where ID=$ID ", null)
         res.moveToFirst()
-        return Course(res.getInt(0),res.getString(1),res.getInt(2))
+        var course = Course(res.getInt(0), res.getString(1), res.getInt(2))
+        res.close()
+        return course
     }
 
     fun findEnrollment(ID: String): Enrollment {
         val db= this.writableDatabase
         val res = db.rawQuery("Select * from $TABLE_ENROLLMENT where ID=$ID ",null)
         res.moveToFirst()
-        return Enrollment(res.getInt(0),findStudent(res.getString(1)),findCourse(res.getString(2)))
+        var enrollment=Enrollment(res.getInt(0),findStudent(res.getString(1)),findCourse(res.getString(2)))
+        res.close()
+        return enrollment
     }
 
 
@@ -172,23 +182,32 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
     fun filterStudent(newText: String?) {
         var aux=Slist.value
         var lista:List<Student> = aux!!.filter{ it.ID.toString().toUpperCase().contains(newText.toString().toUpperCase()) }
-        lista= lista!!+ aux!!.filter{ it.Edad.toString().toUpperCase().contains(newText.toString().toUpperCase()) }
-        lista= lista!!+ aux!!.filter{ it.Nombre.toUpperCase().contains(newText.toString().toUpperCase()) }
-        lista= lista!!+ aux!!.filter{ it.Apellido.toUpperCase().contains(newText.toString().toUpperCase()) }
-        Slist.value=lista!!.distinct()
+        lista= lista + aux.filter{ it.Edad.toString().toUpperCase().contains(newText.toString().toUpperCase()) }
+        lista= lista + aux.filter{ it.Nombre.toUpperCase().contains(newText.toString().toUpperCase()) }
+        lista= lista + aux.filter{ it.Apellido.toUpperCase().contains(newText.toString().toUpperCase()) }
+        Slist.value= lista.distinct()
     }
 
     fun filterCourse(newText: String?) {
         var aux=Clist.value
         var lista:List<Course> = aux!!.filter{ it.ID.toString().toUpperCase().contains(newText.toString().toUpperCase()) }
-        lista= lista!!+ aux!!.filter{ it.Descripcion.toString().toUpperCase().contains(newText.toString().toUpperCase()) }
-        lista= lista!!+ aux!!.filter{ it.Creditos.toString().toUpperCase().contains(newText.toString().toUpperCase()) }
-        Clist.value=lista!!.distinct()
+        lista= lista + aux.filter{ it.Descripcion.toString().toUpperCase().contains(newText.toString().toUpperCase()) }
+        lista= lista + aux.filter{ it.Creditos.toString().toUpperCase().contains(newText.toString().toUpperCase()) }
+        Clist.value= lista.distinct()
+    }
+
+    fun filterEnrollment(newText: String?) {
+        var aux=Elist.value
+        var lista:List<Enrollment> = aux!!.filter{ it.ID.toString().toUpperCase().contains(newText.toString().toUpperCase()) }
+        lista= lista + aux.filter{ it.Student.toString().toUpperCase().contains(newText.toString().toUpperCase()) }
+        lista= lista + aux.filter{ it.course.toString().toUpperCase().contains(newText.toString().toUpperCase()) }
+        Elist.value= lista.distinct()
     }
 
     init {
         Slist.value=allStudents()
         Clist.value=allCourses()
+        Elist.value=allEnrollment()
     }
 
     companion object {
