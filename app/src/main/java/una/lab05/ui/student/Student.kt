@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -33,7 +34,7 @@ class Student : Fragment() {
         get() = _binding!!
 
     private fun initRecyclerView():StudentAdapter{
-        val adapter= StudentAdapter()
+        adapter= StudentAdapter()
         binding.applicationRecycle.adapter=adapter
         return adapter
     }
@@ -81,13 +82,19 @@ class Student : Fragment() {
                 if(direction == ItemTouchHelper.LEFT){
 
                     val student = db!!.Slist.value!!.get(position)
+                    if(db!!.Elist.value!!.filter{ x -> x.Student.ID == student.ID }.isEmpty()){
+                        db?.deleteStudent(student)
 
-                    db?.deleteStudent(student)
+                        Snackbar.make(list,"Se eliminaría ${student}", Snackbar.LENGTH_LONG).setAction("Undo") {
+                            db?.insertStudent(student)
+                        }.show()
 
-                    Snackbar.make(list,"Se eliminaría ${student}", Snackbar.LENGTH_LONG).setAction("Undo") {
-                        db?.insertStudent(student)
-                    }.show()
+                        db!!.allStudents()
 
+                    }else{
+                        toastMe("${student.ID} tiene uno o más cursos asignados")
+                    }
+                    adapter.items=db!!.allStudents()
                 }else{
                     val bundle = bundleOf("pos" to (position))
                     view!!.findNavController().navigate(R.id.addStudent2,bundle)
@@ -122,6 +129,12 @@ class Student : Fragment() {
             adapter.items = items
         }
     }
+
+
+    fun toastMe(message: String){
+        Toast.makeText(requireContext(),message, Toast.LENGTH_LONG).show()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView().let { adapter -> OnInitViewmodel(adapter) }

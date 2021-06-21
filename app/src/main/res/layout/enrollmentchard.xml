@@ -11,51 +11,67 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="129dp"
+        android:background="@color/white"
         app:cardCornerRadius="3dp"
         app:cardElevation="3dp"
-        app:cardUseCompatPadding="true"
-        >
+        app:cardUseCompatPadding="true">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="411dp"
+            android:layout_height="match_parent"
             android:background="@color/white"
-            android:padding="10dp">
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/st_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="Matricula"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+            <LinearLayout
+                android:layout_width="281dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:textColor="@color/black">
 
-            <TextView
-                android:id="@+id/st_fullname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/st_id"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:text="@{enrollment.student.toString()}"
-                android:textColor="@color/black" />
+                <TextView
+                    android:id="@+id/prueba"
+                    android:layout_width="match_parent"
 
-            <TextView
-                android:id="@+id/st_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/st_fullname"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:text="@{enrollment.course.toString()}"
-                android:textColor="@color/black" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Matricula:"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/st_fullname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/st_id"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@{ enrollment.student.toString()}"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/st_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/st_fullname"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="0dp"
+                    android:text="@{enrollment.course.toString()}"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/char1"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="110dp"
+                app:srcCompat="@drawable/ic_enrollment"
+                tools:ignore="VectorDrawableCompat" />
+
+        </LinearLayout>
 
 
     </androidx.cardview.widget.CardView>

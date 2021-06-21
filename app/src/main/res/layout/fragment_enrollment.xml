@@ -11,7 +11,7 @@
         android:id="@+id/search_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_500"/>
+        android:background="@color/Basic"/>
 
     <androidx.recyclerview.widget.RecyclerView
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

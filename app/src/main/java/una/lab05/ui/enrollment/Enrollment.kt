@@ -77,7 +77,7 @@ class Enrollment : Fragment() {
                     Snackbar.make(list,"Se eliminaría ${enrollment}", Snackbar.LENGTH_LONG).setAction("Undo") {
                         db?.insertEnrollment(enrollment)
                     }.show()
-
+                    adapter.items=db!!.allEnrollment()
                 }
             }
 
@@ -99,7 +99,7 @@ class Enrollment : Fragment() {
     }
 
     private fun initRecyclerView():EnrollmentAdapter{
-        val adapter= EnrollmentAdapter()
+        adapter= EnrollmentAdapter()
         binding.applicationRecycle.adapter=adapter
         return adapter
     }

@@ -16,5 +16,9 @@
             android:id="@+id/enrollment"
             android:icon="?attr/actionModePasteDrawable"
             android:title="Enrollment" />
+        <item
+            android:id="   @+id/logout"
+            android:icon="@android:drawable/ic_lock_idle_lock"
+            android:title="Logout" />
     </group>
 </menu>

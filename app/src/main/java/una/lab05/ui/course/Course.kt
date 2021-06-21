@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -24,6 +25,7 @@ class Course : Fragment() {
 
     lateinit var list: RecyclerView
     lateinit var course: Course
+    lateinit var adapter: CourseAdapter
     var position = 0
     lateinit var mainlist:List<una.lab05.logic.Course>
     private var db: DBHelper? =null
@@ -32,14 +34,14 @@ class Course : Fragment() {
         get() = _binding!!
 
     private fun initRecyclerView(): CourseAdapter {
-        val adapter= CourseAdapter()
+        adapter= CourseAdapter()
         binding.applicationRecycle.adapter=adapter
         return adapter
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         db= DBHelper(requireContext())
         mainlist= db!!.allCourses()
         _binding = FragmentCourseBinding.inflate(inflater, container, false)
@@ -75,18 +77,21 @@ class Course : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
                 position = viewHolder.adapterPosition
-                var quien= ""
 
                 if(direction == ItemTouchHelper.LEFT){
 
                     val course = db!!.Clist.value!!.get(position)
 
-                    db?.deleteCourse(course)
+                    if(db!!.Elist.value!!.filter{ x -> x.course.ID == course.ID }.isEmpty()) {
+                        db?.deleteCourse(course)
 
-                    Snackbar.make(list,"Se eliminaría $course", Snackbar.LENGTH_LONG).setAction("Undo") {
-                        db?.insertCourse(course)
-                    }.show()
-
+                        Snackbar.make(list,"Se eliminaría $course", Snackbar.LENGTH_LONG).setAction("Undo") {
+                            db?.insertCourse(course)
+                        }.show()
+                    }else{
+                        toastMe("${course.ID} tiene estudiantes matriculados")
+                    }
+                    adapter.items=db!!.allCourses()
                 }else{
                     val bundle = bundleOf("pos" to (position))
                     view!!.findNavController().navigate(R.id.addCourse,bundle)
@@ -121,6 +126,12 @@ class Course : Fragment() {
             adapter.items = items
         }
     }
+
+
+    fun toastMe(message: String){
+        Toast.makeText(requireContext(),message, Toast.LENGTH_LONG).show()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView().let { adapter -> OnInitViewmodel(adapter) }

@@ -2,7 +2,7 @@ package una.lab05
 
 import android.os.Bundle
 import android.view.Menu
-import com.google.android.material.snackbar.Snackbar
+import android.view.MenuItem
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -11,8 +11,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import una.lab05.databinding.ActivityMenuBinding
+
 import una.lab05.R
+import una.lab05.databinding.ActivityMenuBinding
 
 class MenuActivity : AppCompatActivity() {
 
@@ -39,6 +40,10 @@ class MenuActivity : AppCompatActivity() {
                 "Courses"-> navController.navigate(R.id.addCourse)
                 "Enrollments"-> navController.navigate(R.id.addEnrolment)
             }
+        }
+        binding.navView.menu.findItem(R.id.logout).setOnMenuItemClickListener {
+            finish()
+            true
         }
 
         appBarConfiguration = AppBarConfiguration(

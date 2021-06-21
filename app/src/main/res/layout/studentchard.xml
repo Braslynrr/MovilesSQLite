@@ -11,51 +11,86 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="122dp"
         app:cardCornerRadius="3dp"
         app:cardElevation="3dp"
-        app:cardUseCompatPadding="true"
-        >
+        app:cardUseCompatPadding="true">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/white"
+            android:orientation="horizontal"
             android:padding="10dp">
 
-            <TextView
-                android:id="@+id/st_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="@{Integer.toString(student.ID)}"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+            <LinearLayout
+                android:layout_width="102dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/st_fullname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/st_id"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:text="@{student.nombre+' '+student.apellido}"
-                android:textColor="@color/black" />
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:text="ID:"
+                    android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/st_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/st_fullname"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:text="@{Integer.toString(student.Edad)}"
-                android:textColor="@color/black" />
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:text="Nombre:"
+                    android:textColor="@color/black" />
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Edad:"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="166dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/st_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@{Integer.toString(student.ID)}"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/st_fullname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@{student.nombre+' '+student.apellido}"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/st_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@{Integer.toString(student.Edad)}"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/char1"
+                android:layout_width="118dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="110dp"
+                app:srcCompat="@drawable/ic_est"
+                tools:ignore="VectorDrawableCompat" />
+
+        </LinearLayout>
 
 
     </androidx.cardview.widget.CardView>
